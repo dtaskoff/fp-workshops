@@ -79,3 +79,13 @@ parse' (n:cs) =
     Just n' -> (Just (Val n'), cs)
     Nothing -> (Nothing, n:cs)
 parse' other = (Nothing, other)
+
+evaluate :: String -> Maybe Int
+evaluate s =
+  case parse s of
+    (Just expr, []) -> Just (evaluate' expr)
+    _ -> Nothing
+
+evaluate' :: Expr -> Int
+evaluate' (Val n) = n
+evaluate' (Add lexpr rexpr) = evaluate' lexpr + evaluate' rexpr
