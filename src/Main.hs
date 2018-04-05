@@ -22,3 +22,12 @@ factorial'' n =
     0 -> 1
     1 -> 1
     _ -> n * factorial'' (n - 1)
+
+product' :: [Int] -> Int
+product' (x:xs) = x * product' xs
+product' [] = 1
+
+product'' :: [Int] -> Int
+product'' xs = go 1 xs
+  where go acc [] = acc
+        go acc (y:ys) = go (y * acc) ys
