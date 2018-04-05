@@ -68,6 +68,12 @@ parse :: String -> (Maybe Expr, [String])
 parse s = parse' (words' s)
 
 parse' :: [String] -> (Maybe Expr, [String])
+parse' ("+":cs) =
+  let (lexpr, rest) = parse' cs
+      (rexpr, rest') = parse' rest
+  in  case (lexpr, rexpr) of
+        (Just l, Just r) -> (Just (Add l r), rest')
+        _ -> (Nothing, "+":cs)
 parse' (n:cs) =
   case readMaybe n of
     Just n' -> (Just (Val n'), cs)
