@@ -40,3 +40,20 @@ member _ [] = False
 isogram :: String -> Bool
 isogram (c:cs) = not (member c cs) && isogram cs
 isogram _ = True
+
+words' :: String -> [String]
+words' "" = []
+words' s  =
+  case takeSymbols (skipSpaces s) of
+    ("", rest) -> words' rest
+    (taken, rest) -> taken : words' rest
+
+takeSymbols :: String -> (String, String)
+takeSymbols s = go "" s
+  where go acc (' ':cs) = (acc, ' ':cs)
+        go acc (c:cs)   = go (acc ++ [c]) cs
+        go acc ""       = (acc, "")
+
+skipSpaces :: String -> String
+skipSpaces (' ':cs) = skipSpaces cs
+skipSpaces s = s
