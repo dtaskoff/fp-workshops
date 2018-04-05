@@ -57,3 +57,7 @@ takeSymbols s = go "" s
 skipSpaces :: String -> String
 skipSpaces (' ':cs) = skipSpaces cs
 skipSpaces s = s
+
+data Expr = Val Int
+          | Add Expr Expr
+  deriving Show
