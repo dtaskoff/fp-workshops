@@ -2,7 +2,7 @@ module WorkshopOne.Expr where
 
 import Text.Read (readMaybe)
 
-import WorkshopOne.WarmUp (member, words')
+import WorkshopOne.WarmUp (elem', words')
 
 
 data Expr = Val Int
@@ -15,7 +15,7 @@ parse :: String -> (Maybe Expr, [String])
 parse s = parse' (words' s)
 
 parse' :: [String] -> (Maybe Expr, [String])
-parse' (op:cs) | op `member` ["+", "-", "*"] =
+parse' (op:cs) | op `elem'` ["+", "-", "*"] =
   let (lexpr, rest) = parse' cs
       (rexpr, rest') = parse' rest
   in  case (lexpr, rexpr) of

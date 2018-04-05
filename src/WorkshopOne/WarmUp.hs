@@ -27,13 +27,13 @@ product'' xs = go 1 xs
   where go acc [] = acc
         go acc (y:ys) = go (y * acc) ys
 
-member :: Eq a => a -> [a] -> Bool
-member n (x:xs) = n == x || member n xs
-member _ [] = False
+elem' :: Eq a => a -> [a] -> Bool
+elem' n (x:xs) = n == x || elem' n xs
+elem' _ [] = False
 
 -- an isogram is a word without a repeating letter
 isogram :: String -> Bool
-isogram (c:cs) = not (member c cs) && isogram cs
+isogram (c:cs) = not (elem' c cs) && isogram cs
 isogram _ = True
 
 words' :: String -> [String]
