@@ -1,5 +1,7 @@
 module Main where
 
+import Text.Read (readMaybe)
+
 
 main :: IO ()
 main = do
@@ -61,3 +63,13 @@ skipSpaces s = s
 data Expr = Val Int
           | Add Expr Expr
   deriving Show
+
+parse :: String -> (Maybe Expr, [String])
+parse s = parse' (words' s)
+
+parse' :: [String] -> (Maybe Expr, [String])
+parse' (n:cs) =
+  case readMaybe n of
+    Just n' -> (Just (Val n'), cs)
+    Nothing -> (Nothing, n:cs)
+parse' other = (Nothing, other)
