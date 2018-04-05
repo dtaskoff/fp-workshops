@@ -35,3 +35,8 @@ product'' xs = go 1 xs
 member :: Eq a => a -> [a] -> Bool
 member n (x:xs) = n == x || member n xs
 member _ [] = False
+
+-- an isogram is a word without a repeating letter
+isogram :: String -> Bool
+isogram (c:cs) = not (member c cs) && isogram cs
+isogram _ = True
