@@ -31,3 +31,7 @@ product'' :: [Int] -> Int
 product'' xs = go 1 xs
   where go acc [] = acc
         go acc (y:ys) = go (y * acc) ys
+
+member :: Eq a => a -> [a] -> Bool
+member n (x:xs) = n == x || member n xs
+member _ [] = False
